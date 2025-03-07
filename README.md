@@ -1,95 +1,83 @@
-Métodos Numéricos para Resolução de Sistemas Lineares
+# **Métodos Numéricos para Resolução de Sistemas Lineares**
 
-Este projeto contém implementações de métodos numéricos para resolver sistemas de equações lineares. Cada método é implementado como uma classe em Python, utilizando a biblioteca numpy para eficiência e desempenho.
-Métodos Implementados
+Este projeto apresenta implementações de métodos numéricos eficientes para resolver sistemas de equações lineares, utilizando **Python** e a biblioteca **NumPy** para otimização de cálculo.
 
-    Gauss-Seidel (GaussSeidelSolver)
+## **Métodos Implementados**
 
-    TDMA (Tridiagonal Matrix Algorithm) (TDMASolver)
+✅ **Gauss-Seidel** (GaussSeidelSolver)  
+✅ **TDMA** (Tridiagonal Matrix Algorithm) (TDMASolver)  
+✅ **Decomposição LU** (LUSolver)  
+✅ **Eliminação de Gauss** (GaussEliminationSolver)  
 
-    Decomposição LU (LUSolver)
+---
 
-    Eliminação de Gauss (GaussEliminationSolver)
+## **1. Gauss-Seidel (GaussSeidelSolver)**
 
-1. Gauss-Seidel (GaussSeidelSolver)
-Finalidade:
+### **Objetivo**
+Resolve um sistema de equações lineares usando o **método iterativo de Gauss-Seidel**. Indicado para matrizes **diagonalmente dominantes**.
 
-Resolve um sistema de equações lineares usando o método iterativo de Gauss-Seidel. É adequado para sistemas onde a matriz de coeficientes é diagonalmente dominante.
-Entrada:
+### **Entradas**
+- `A`: Matriz de coeficientes *(n x n)*
+- `B`: Vetor de constantes *(n x 1)*
+- `X0` (opcional): Chute inicial *(n x 1)* *(padrão: vetor de uns)*
+- `tol` (opcional): Tolerância do erro *(padrão: 1e-6)*
+- `max_iterations` (opcional): Número máximo de iterações *(padrão: 1000)*
 
-    A: Matriz de coeficientes (n x n).
+### **Saídas**
+- `X`: Vetor solução *(n x 1)*
+- `iterations`: Número de iterações realizadas
 
-    B: Vetor de constantes (n x 1).
-
-    X0 (opcional): Chute inicial para a solução (n x 1). Padrão: vetor de uns.
-
-    tol (opcional): Tolerância para o erro na solução. Padrão: 1e-6.
-
-    max_iterations (opcional): Número máximo de iterações. Padrão: 1000.
-
-Saída:
-
-    X: Vetor solução (n x 1).
-
-    iterations: Número de iterações realizadas.
-
-Exemplo de Uso:
-python
-Copy
-
+### **Exemplo de Uso**
+```python
 A = np.array([[4, -1, 0], [-1, 4, -1], [0, -1, 4]])
 B = np.array([15, 10, 10])
 solver = GaussSeidelSolver(A, B)
 X, iterations = solver.solve()
 print(f"Solução: {X}")
 print(f"Iterações: {iterations}")
+```
 
-2. TDMA (Tridiagonal Matrix Algorithm) (TDMASolver)
-Finalidade:
+---
 
-Resolve sistemas de equações lineares onde a matriz de coeficientes é tridiagonal. Este método é altamente eficiente para esse tipo de sistema.
-Entrada:
+## **2. TDMA (Tridiagonal Matrix Algorithm) (TDMASolver)**
 
-    A: Matriz tridiagonal de coeficientes (n x n).
+### **Objetivo**
+Resolve sistemas de equações onde a **matriz de coeficientes é tridiagonal**, garantindo alta eficiência computacional.
 
-    B: Vetor de constantes (n x 1).
+### **Entradas**
+- `A`: Matriz tridiagonal de coeficientes *(n x n)*
+- `B`: Vetor de constantes *(n x 1)*
 
-Saída:
+### **Saídas**
+- `X`: Vetor solução *(n x 1)*
 
-    X: Vetor solução (n x 1).
-
-Exemplo de Uso:
-python
-Copy
-
+### **Exemplo de Uso**
+```python
 A = np.array([[4, -1, 0], [-1, 4, -1], [0, -1, 4]])
 B = np.array([15, 10, 10])
 solver = TDMASolver(A, B)
 X = solver.solve()
 print(f"Solução: {X}")
+```
 
-3. Decomposição LU (LUSolver)
-Finalidade:
+---
 
-Resolve um sistema de equações lineares usando a decomposição LU. Este método decompõe a matriz de coeficientes em uma matriz triangular inferior (L) e uma matriz triangular superior (U), e então resolve o sistema usando substituição direta e reversa.
-Entrada:
+## **3. Decomposição LU (LUSolver)**
 
-    A: Matriz de coeficientes (n x n).
+### **Objetivo**
+Resolve um sistema de equações lineares usando a **decomposição LU**, que transforma a matriz de coeficientes em **L** (matriz triangular inferior) e **U** (matriz triangular superior), permitindo resolver o sistema com substituição direta e reversa.
 
-    B: Vetor de constantes (n x 1).
+### **Entradas**
+- `A`: Matriz de coeficientes *(n x n)*
+- `B`: Vetor de constantes *(n x 1)*
 
-Saída:
+### **Saídas**
+- `X`: Vetor solução *(n x 1)*
+- `L`: Matriz triangular inferior *(n x n)*
+- `U`: Matriz triangular superior *(n x n)*
 
-    X: Vetor solução (n x 1).
-
-    L: Matriz triangular inferior (n x n).
-
-    U: Matriz triangular superior (n x n).
-
-Exemplo de Uso:
-python
-Copy
-
+### **Exemplo de Uso**
+```python
 A = np.array([[4, -1, 0], [-1, 4, -1], [0, -1, 4]])
 B = np.array([15, 10, 10])
 solver = LUSolver(A, B)
@@ -97,54 +85,61 @@ X, L, U = solver.solve()
 print(f"Solução: {X}")
 print(f"Matriz L:\n{L}")
 print(f"Matriz U:\n{U}")
+```
 
-4. Eliminação de Gauss (GaussEliminationSolver)
-Finalidade:
+---
 
-Resolve um sistema de equações lineares usando o método direto de eliminação de Gauss. Transforma a matriz de coeficientes em uma matriz triangular superior e resolve o sistema usando substituição reversa.
-Entrada:
+## **4. Eliminação de Gauss (GaussEliminationSolver)**
 
-    A: Matriz de coeficientes (n x n).
+### **Objetivo**
+Resolve sistemas lineares utilizando o **método direto da eliminação de Gauss**, transformando a matriz de coeficientes em uma **matriz triangular superior** e resolvendo o sistema por substituição reversa.
 
-    B: Vetor de constantes (n x 1).
+### **Entradas**
+- `A`: Matriz de coeficientes *(n x n)*
+- `B`: Vetor de constantes *(n x 1)*
 
-Saída:
+### **Saídas**
+- `X`: Vetor solução *(n x 1)*
 
-    X: Vetor solução (n x 1).
-
-Exemplo de Uso:
-python
-Copy
-
+### **Exemplo de Uso**
+```python
 A = np.array([[1, 2], [4, 5]])
 B = np.array([-1, 4])
 solver = GaussEliminationSolver(A, B)
 X = solver.solve()
 print(f"Solução: {X}")
+```
 
-Requisitos
+---
 
-    Python 3.x
+## **Requisitos**
 
-    Biblioteca numpy (instalável via pip install numpy).
+Para rodar este projeto, você precisará de:
 
-Como Executar
+- **Python 3.x**
+- **Biblioteca NumPy** *(instalável via pip:)*
+  ```bash
+  pip install numpy
+  ```
 
-    Clone o repositório ou copie o código das classes.
+---
 
-    Instale as dependências:
-    bash
-    Copy
+## **Como Executar**
 
-    pip install numpy
+1️⃣ Clone este repositório ou copie o código das classes.  
+2️⃣ Instale as dependências:  
+   ```bash
+   pip install numpy
+   ```
+3️⃣ Execute os exemplos de cada método.
 
-    Execute os exemplos fornecidos em cada seção.
+---
 
-Considerações Finais
+## **Considerações Finais**
 
-    Eficiência: Todos os métodos foram implementados com foco em desempenho, utilizando operações vetorizadas do numpy.
+✔ **Eficiência**: Implementação otimizada com **operações vetorizadas do NumPy**.  
+✔ **Robustez**: Verificações de consistência, como **matriz quadrada** e **compatibilidade de dimensões**.  
+✔ **Documentação**: Código bem comentado para facilitar o uso e entendimento.  
 
-    Robustez: Verificações de consistência (como matriz quadrada e compatibilidade de dimensões) são realizadas em cada método.
-
-    Documentação: Cada classe e método está bem documentado para facilitar o uso e a compreensão.
+🚀 **Agora é só testar e resolver seus sistemas lineares com eficiência!**
 
